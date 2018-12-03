@@ -30,3 +30,4 @@ D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.dll
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.pdb
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.csproj.CopyComplete
+D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Product\Create.g.cshtml.cs
