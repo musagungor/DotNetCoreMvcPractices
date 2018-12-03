@@ -7,5 +7,6 @@ namespace DotNetCoreMvcPractices.Models
         public decimal Price { get; set; }
         public decimal Stock { get; set; }
         public int BrandId { get; set; }
+          public string ImagePath { get; set; }
     }
 }
