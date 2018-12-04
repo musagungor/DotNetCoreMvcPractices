@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using DotNetCoreMvcPractices.Models;
 using DotNetCoreMvcPractices.Repositories;
 using DotNetCoreMvcPractices.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DotNetCoreMvcPractices.Controllers
 {
@@ -21,23 +23,21 @@ namespace DotNetCoreMvcPractices.Controllers
                 new Brand{Id=3,Name="Anadol"},
                 new Brand{Id=4,Name="Suziki"}
             };
-        private readonly IProductRepository repository;
+        
         private readonly IHostingEnvironment environment;
+        private readonly MvcPracticeDbContext context;
 
-        public ProductController(IHostingEnvironment environment, IProductRepository repository)
+        public ProductController(IHostingEnvironment environment, MvcPracticeDbContext context)
         {
             this.environment = environment;
-            this.repository = repository;
-
+            this.context = context;
         }
 
         [Route("products")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var products = repository.GetAll();
-
+            var products = await context.Products.Include(m=>m.Brand).ToListAsync();
             return View(products);
-
         }
 
         [Route("new-product")]
@@ -66,8 +66,8 @@ namespace DotNetCoreMvcPractices.Controllers
                     productCreateViewModel.Product.ImagePath = productCreateViewModel.ImageFile.FileName;
                 }
             }
-            repository.Add(productCreateViewModel.Product);
-
+             context.Products.Add(productCreateViewModel.Product);
+            context.SaveChanges();
           
 
             return RedirectToAction("Index");
