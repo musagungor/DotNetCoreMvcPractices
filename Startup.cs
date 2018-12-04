@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Data.Sqlite;
 
 namespace DotNetCoreMvcPractices
 {
@@ -24,6 +26,10 @@ namespace DotNetCoreMvcPractices
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = Configuration.GetConnectionString("Default")};
+            var connectionString = connectionStringBuilder.ToString();
+            services.AddEntityFrameworkSqlite().AddDbContext<MvcPracticeDbContext>(option => option.UseSqlite(connectionString));
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
