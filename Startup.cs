@@ -39,6 +39,7 @@ namespace DotNetCoreMvcPractices
 
             //TOASK : Transient - Singleton - Scoped
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IUnitOfWork , UnitOfWork>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

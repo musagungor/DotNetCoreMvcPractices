@@ -17,25 +17,34 @@ namespace DotNetCoreMvcPractices.Controllers
     public class ProductController : Controller
     {
 
-        List<Brand> Brands = new List<Brand>{
-                new Brand{Id=1,Name="Mercedes"},
-                new Brand{Id=2,Name="Renault"},
-                new Brand{Id=3,Name="Anadol"},
-                new Brand{Id=4,Name="Suziki"}
-            };
-        
-        private readonly IHostingEnvironment environment;        
+
+        private readonly IHostingEnvironment environment;
         private readonly IProductRepository repository;
         private readonly IUnitOfWork unitOfWork;
+        private readonly IBrandRepository brandRepository;
 
-        public ProductController(IHostingEnvironment environment, IProductRepository repository,IUnitOfWork unitOfWork)
+        public ProductController(IHostingEnvironment environment,
+        IProductRepository repository,
+        IUnitOfWork unitOfWork,
+        IBrandRepository brandRepository)
         {
-            this.environment = environment;            
+            this.environment = environment;
             this.repository = repository;
             this.unitOfWork = unitOfWork;
+            this.brandRepository = brandRepository;
         }
 
         [Route("products")]
+
+        public async Task<IActionResult> Index(string productName)
+        {
+            var products = await repository
+                        .FindAsync(p => string.IsNullOrWhiteSpace(productName)
+                                        || p.Name.ToLower().StartsWith(productName.ToLower()));
+            return View(products);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Index()
         {
             var products = await repository.GetAllAsync();
@@ -43,10 +52,10 @@ namespace DotNetCoreMvcPractices.Controllers
         }
 
         [Route("new-product")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var productCreateViewModel = new ProductCreateViewModel();
-            productCreateViewModel.Brands = Brands;
+            productCreateViewModel.Brands = await brandRepository.GetAllAsync();
 
             return View(productCreateViewModel);
 
@@ -54,23 +63,30 @@ namespace DotNetCoreMvcPractices.Controllers
 
         [Route("new-product")]
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(ProductCreateViewModel productCreateViewModel)
+        public async Task<IActionResult> Create(ProductCreateViewModel productCreateViewModel)
         {
 
 
-            if (productCreateViewModel.ImageFile != null && productCreateViewModel.ImageFile.Length > 0)
+            if (productCreateViewModel.ImageFile != null
+            && productCreateViewModel.ImageFile.Length > 0)
             {
-                var filePath = Path.Combine(environment.WebRootPath, @"TempImages");
-                var x = Path.Combine(Directory.GetCurrentDirectory(), @"Images");
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                var imageName = productCreateViewModel.ImageFile.FileName;
+                var filePath = Path.Combine(environment.WebRootPath, @"images/product");
+                if (!Directory.Exists(filePath))
                 {
-                     productCreateViewModel.ImageFile.CopyTo(stream);
+                    Directory.CreateDirectory(filePath);
+                }
+                var imageUri = Path.Combine(filePath, imageName);
+
+                using (var stream = new FileStream(imageUri, FileMode.Create))
+                {
+                    productCreateViewModel.ImageFile.CopyTo(stream);
                     productCreateViewModel.Product.ImagePath = productCreateViewModel.ImageFile.FileName;
                 }
             }
-             await repository.AddAsync(productCreateViewModel.Product);
+            await repository.AddAsync(productCreateViewModel.Product);
             await unitOfWork.ComplateAsync();
-          
+
 
             return RedirectToAction("Index");
 

@@ -5,6 +5,12 @@
 <p>
   <a asp-action="Create" class="btn btn-default">Yeni Ürün</a>
 </p>
+<form asp-controller="Product" asp-action="Index" class="form-inline">
+  <div class="form-group">       
+  <input type="search" class="form-control" name="productName" placeholder="Ürün Adı...">
+  <button type="submit" class="btn btn-primary">Ara</button>
+</div>   
+</form>
 <table class="table">
   <thead>
     <tr>
@@ -38,7 +44,7 @@
         </td>
        
         <td>
-          <img src="~/Images/@item.ImagePath" alt="Image" width="100" />
+          <img src="~/Images/product/@item.ImagePath" alt="Image" width="100" />
         </td>
        
       </tr>
