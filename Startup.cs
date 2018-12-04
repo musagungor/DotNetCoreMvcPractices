@@ -37,7 +37,9 @@ namespace DotNetCoreMvcPractices
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //TOASK : Transient - Singleton - Scoped
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IUnitOfWork , UnitOfWork>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

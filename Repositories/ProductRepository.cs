@@ -3,38 +3,48 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using DotNetCoreMvcPractices.Models;
+using Microsoft.EntityFrameworkCore;
+using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace DotNetCoreMvcPractices.Repositories
 {
 
     public class ProductRepository : IProductRepository
     {
-        public static List<Product> Products = new List<Product>();
-       
+      
+        private readonly MvcPracticeDbContext context;
 
-        public Product Get(int id)
+        public ProductRepository(MvcPracticeDbContext context)
         {
-            var product = Products.SingleOrDefault(p => p.Id == id);
+            this.context = context;
+        }
+
+        public async Task<Product> GetAsync(int id)
+        {
+
+            var product = await context.Products.Include(m => m.Brand).SingleOrDefaultAsync(p => p.Id == id);
             return product;
         }
-        public List<Product> GetAll()
+        public async Task<List<Product>> GetAllAsync()
         {
-            return Products;
+            var products = await context.Products.Include(m => m.Brand).ToListAsync();
+            return products;
         }
 
-        public List<Product> Find(Func<Product, bool> predicate)
+        public async Task<List<Product>> FindAsync(Func<Product, bool> predicate)
         {
-            var filtered = Products.ToList().Where(predicate).ToList();
+            var filtered = await context.Products.Where(predicate).ToAsyncEnumerable().ToList();
             return filtered;
         }
-        public void Add(Product product)
+        public async Task AddAsync(Product product)
         {
-            Products.Add(product);
+            await context.Products.AddAsync(product);
         }
         public void Remove(Product product)
         {
-            Products.Remove(product);
+            context.Products.Remove(product);
 
         }
     }

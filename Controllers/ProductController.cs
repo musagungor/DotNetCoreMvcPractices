@@ -24,19 +24,21 @@ namespace DotNetCoreMvcPractices.Controllers
                 new Brand{Id=4,Name="Suziki"}
             };
         
-        private readonly IHostingEnvironment environment;
-        private readonly MvcPracticeDbContext context;
+        private readonly IHostingEnvironment environment;        
+        private readonly IProductRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public ProductController(IHostingEnvironment environment, MvcPracticeDbContext context)
+        public ProductController(IHostingEnvironment environment, IProductRepository repository,IUnitOfWork unitOfWork)
         {
-            this.environment = environment;
-            this.context = context;
+            this.environment = environment;            
+            this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [Route("products")]
         public async Task<IActionResult> Index()
         {
-            var products = await context.Products.Include(m=>m.Brand).ToListAsync();
+            var products = await repository.GetAllAsync();
             return View(products);
         }
 
@@ -52,7 +54,7 @@ namespace DotNetCoreMvcPractices.Controllers
 
         [Route("new-product")]
         [HttpPost]
-        public IActionResult Create(ProductCreateViewModel productCreateViewModel)
+        public async Task<IActionResult> CreateAsync(ProductCreateViewModel productCreateViewModel)
         {
 
 
@@ -66,8 +68,8 @@ namespace DotNetCoreMvcPractices.Controllers
                     productCreateViewModel.Product.ImagePath = productCreateViewModel.ImageFile.FileName;
                 }
             }
-             context.Products.Add(productCreateViewModel.Product);
-            context.SaveChanges();
+             await repository.AddAsync(productCreateViewModel.Product);
+            await unitOfWork.ComplateAsync();
           
 
             return RedirectToAction("Index");
