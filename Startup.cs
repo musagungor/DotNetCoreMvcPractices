@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Data.Sqlite;
+using DotNetCoreMvcPractices.Helpers;
 
 namespace DotNetCoreMvcPractices
 {
@@ -41,6 +42,7 @@ namespace DotNetCoreMvcPractices
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IUnitOfWork , UnitOfWork>();
+            services.AddScoped<IFormFileDownloader,FormFileDownloader>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

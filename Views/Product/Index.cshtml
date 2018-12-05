@@ -26,6 +26,7 @@
       </th>
      
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -46,6 +47,7 @@
         <td>
           <img src="~/Images/product/@item.ImagePath" alt="Image" width="100" />
         </td>
+        <td> @Html.ActionLink("Sil", "Delete", new { id=item.Id},new {@class="btn btn-danger"})</td>
        
       </tr>
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using DotNetCoreMvcPractices.Helpers;
 using DotNetCoreMvcPractices.Models;
 using DotNetCoreMvcPractices.Repositories;
 using DotNetCoreMvcPractices.ViewModels;
@@ -22,20 +23,24 @@ namespace DotNetCoreMvcPractices.Controllers
         private readonly IProductRepository repository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IBrandRepository brandRepository;
+        private readonly IFormFileDownloader fileDownloader;
 
         public ProductController(IHostingEnvironment environment,
         IProductRepository repository,
         IUnitOfWork unitOfWork,
-        IBrandRepository brandRepository)
+        IBrandRepository brandRepository,
+        IFormFileDownloader fileDownloader)
         {
             this.environment = environment;
             this.repository = repository;
             this.unitOfWork = unitOfWork;
             this.brandRepository = brandRepository;
+            this.fileDownloader = fileDownloader;
+
         }
 
+//TOASK Sayfadan buton ile bu actiona gelmek için post ve pur ikiside olmalı mı?
         [Route("products")]
-
         public async Task<IActionResult> Index(string productName)
         {
             var products = await repository
@@ -70,25 +75,31 @@ namespace DotNetCoreMvcPractices.Controllers
             if (productCreateViewModel.ImageFile != null
             && productCreateViewModel.ImageFile.Length > 0)
             {
-                var imageName = productCreateViewModel.ImageFile.FileName;
                 var filePath = Path.Combine(environment.WebRootPath, @"images/product");
-                if (!Directory.Exists(filePath))
-                {
-                    Directory.CreateDirectory(filePath);
-                }
-                var imageUri = Path.Combine(filePath, imageName);
+                fileDownloader.DonloadFormFile(productCreateViewModel.ImageFile, filePath);
+                productCreateViewModel.Product.ImagePath = productCreateViewModel.ImageFile.FileName;
 
-                using (var stream = new FileStream(imageUri, FileMode.Create))
-                {
-                    productCreateViewModel.ImageFile.CopyTo(stream);
-                    productCreateViewModel.Product.ImagePath = productCreateViewModel.ImageFile.FileName;
-                }
             }
             await repository.AddAsync(productCreateViewModel.Product);
             await unitOfWork.ComplateAsync();
 
 
             return RedirectToAction("Index");
+
+        }
+
+         [Route("delete-product")]
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var product = await repository.GetAsync(id);
+             if(product == null){  return NotFound();}
+          
+            repository.Remove(product);
+            await unitOfWork.ComplateAsync();
+
+
+            return RedirectToAction("Index");;
 
         }
     }
