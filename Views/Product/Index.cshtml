@@ -2,54 +2,68 @@
 
 <h2>Ürünler</h2>
 
-<p>
-  <a asp-action="Create" class="btn btn-default">Yeni Ürün</a>
-</p>
-<form asp-controller="Product" asp-action="Index" class="form-inline">
-  <div class="form-group">       
-  <input type="search" class="form-control" name="productName" placeholder="Ürün Adı...">
-  <button type="submit" class="btn btn-primary">Ara</button>
-</div>   
-</form>
+
+
 <table class="table">
-  <thead>
-    <tr>
-     
-      <th>
-        @Html.DisplayNameFor(model => model.Name)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Stock)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Price)
-      </th>
-     
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach (var item in Model)
-    {
-      <tr>
-       
-        <td>
-          @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-          @Html.DisplayFor(modelItem => item.Stock)
-        </td>
-        <td>
-          @Html.DisplayFor(modelItem => item.Price)
-        </td>
-       
-        <td>
-          <img src="~/Images/product/@item.ImagePath" alt="Image" width="100" />
-        </td>
-        <td> @Html.ActionLink("Sil", "Delete", new { id=item.Id},new {@class="btn btn-danger"})</td>
-       
-      </tr>
-    }
-  </tbody>
+	<thead>
+		<tr>
+			<th>
+				<a asp-action="Create" class="btn btn-success">
+					Yeni Ürün
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</a>
+			</th>
+			<th></th>
+			<th colspan="3" style="text-align:right;">
+				<form asp-controller="Product" asp-action="Index" class="form-inline">
+					<div class="form-group">
+						<input type="search" class="form-control" name="productName" placeholder="Ürün Adı...">
+						<button type="submit" class="btn btn-primary">Ara</button>
+					</div>
+				</form>
+			</th>
+		</tr>
+		<tr>
+
+			<th>
+				@Html.DisplayNameFor(model => model.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Stock)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Price)
+			</th>
+
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+
+		@foreach (var item in Model)
+		{
+			<tr>
+
+				<td>
+					@Html.DisplayFor(modelItem => item.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Stock)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Price)
+				</td>
+
+				<td>
+					<img src="~/Images/product/@item.ImagePath" alt="Image" height="30" />
+				</td>
+				<td>
+					@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+					@Html.ActionLink(" ", "Create", new { id = item.Id }, new { @class = "btn btn-primary  glyphicon glyphicon-edit" })
+				</td>
+
+			</tr>
+		}
+	</tbody>
 </table>
