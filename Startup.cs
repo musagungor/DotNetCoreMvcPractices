@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Data.Sqlite;
 using DotNetCoreMvcPractices.Helpers;
+using DotNetCoreMvcPractices.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace DotNetCoreMvcPractices
 {
@@ -43,6 +45,19 @@ namespace DotNetCoreMvcPractices
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IUnitOfWork , UnitOfWork>();
             services.AddScoped<IFormFileDownloader,FormFileDownloader>();
+            services.AddScoped<ICartService,CartService>();
+
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+            });
+
+            services.AddHttpContextAccessor();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -60,6 +75,7 @@ namespace DotNetCoreMvcPractices
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

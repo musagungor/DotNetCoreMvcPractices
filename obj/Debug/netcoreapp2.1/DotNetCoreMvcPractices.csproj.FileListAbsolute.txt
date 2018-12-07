@@ -66,3 +66,4 @@ D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\n
 D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.dll
 D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.pdb
 D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.csproj.CopyComplete
+D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Cart\Index.g.cshtml.cs

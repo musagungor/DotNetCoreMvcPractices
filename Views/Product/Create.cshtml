@@ -1,7 +1,7 @@
 @model DotNetCoreMvcPractices.ViewModels.ProductCreateViewModel
 <h1>Yeni Ürün Ekle</h1>
 
-<form asp-controller="Product" method="post" enctype="multipart/form-data">
+<form asp-controller="Product" enctype="multipart/form-data" method="post">
     <input asp-for="Product.Id" type="hidden" />
     <div class="form-group">
         <label class="control-label" asp-for="Product.Name"></label>
