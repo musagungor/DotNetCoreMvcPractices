@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Data.Sqlite;
+using DotNetCoreMvcPractices.Helpers;
 
 namespace DotNetCoreMvcPractices
 {
@@ -24,6 +27,10 @@ namespace DotNetCoreMvcPractices
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = Configuration.GetConnectionString("Default")};
+            var connectionString = connectionStringBuilder.ToString();
+            services.AddEntityFrameworkSqlite().AddDbContext<MvcPracticeDbContext>(option => option.UseSqlite(connectionString));
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -31,7 +38,11 @@ namespace DotNetCoreMvcPractices
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //TOASK : Transient - Singleton - Scoped
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IUnitOfWork , UnitOfWork>();
+            services.AddScoped<IFormFileDownloader,FormFileDownloader>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

@@ -1,77 +1,138 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+using DotNetCoreMvcPractices.Helpers;
 using DotNetCoreMvcPractices.Models;
 using DotNetCoreMvcPractices.Repositories;
 using DotNetCoreMvcPractices.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DotNetCoreMvcPractices.Controllers
 {
 
 
-    [Route("product")]
-    public class ProductController : Controller
-    {
-
-        List<Brand> Brands = new List<Brand>{
-                new Brand{Id=1,Name="Mercedes"},
-                new Brand{Id=2,Name="Renault"},
-                new Brand{Id=3,Name="Anadol"},
-                new Brand{Id=4,Name="Suziki"}
-            };
-        private readonly IProductRepository repository;
-        private readonly IHostingEnvironment environment;
-
-        public ProductController(IHostingEnvironment environment, IProductRepository repository)
-        {
-            this.environment = environment;
-            this.repository = repository;
-
-        }
-
-        [Route("products")]
-        public IActionResult Index()
-        {
-            var products = repository.GetAll();
-
-            return View(products);
-
-        }
-
-        [Route("new-product")]
-        public IActionResult Create()
-        {
-            var productCreateViewModel = new ProductCreateViewModel();
-            productCreateViewModel.Brands = Brands;
-
-            return View(productCreateViewModel);
-
-        }
-
-        [Route("new-product")]
-        [HttpPost]
-        public IActionResult Create(ProductCreateViewModel productCreateViewModel)
-        {
+	[Route("product")]
+	public class ProductController : Controller
+	{
 
 
-            if (productCreateViewModel.ImageFile != null && productCreateViewModel.ImageFile.Length > 0)
-            {
-                var filePath = Path.Combine(environment.WebRootPath, @"TempImages");
-                var x = Path.Combine(Directory.GetCurrentDirectory(), @"Images");
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                     productCreateViewModel.ImageFile.CopyTo(stream);
-                    productCreateViewModel.Product.ImagePath = productCreateViewModel.ImageFile.FileName;
-                }
-            }
-            repository.Add(productCreateViewModel.Product);
+		private readonly IHostingEnvironment environment;
+		private readonly IProductRepository repository;
+		private readonly IUnitOfWork unitOfWork;
+		private readonly IBrandRepository brandRepository;
+		private readonly IFormFileDownloader fileDownloader;
 
-          
+		public ProductController(IHostingEnvironment environment,
+		IProductRepository repository,
+		IUnitOfWork unitOfWork,
+		IBrandRepository brandRepository,
+		IFormFileDownloader fileDownloader)
+		{
+			this.environment = environment;
+			this.repository = repository;
+			this.unitOfWork = unitOfWork;
+			this.brandRepository = brandRepository;
+			this.fileDownloader = fileDownloader;
 
-            return RedirectToAction("Index");
+		}
 
-        }
-    }
+		//TOASK Sayfadan buton ile bu actiona gelmek için post ve pur ikiside olmalı mı?
+		[Route("products")]
+		public async Task<IActionResult> Index(string productName)
+		{
+			var products = await repository
+						.FindAsync(p => string.IsNullOrWhiteSpace(productName)
+										|| p.Name.ToLower().StartsWith(productName.ToLower()));
+			return View(products);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Index()
+		{
+			var products = await repository.GetAllAsync();
+			return View(products);
+		}
+
+		[Route("new-product")]
+		public async Task<IActionResult> Create(int? id)
+		{
+			var productCreateViewModel = new ProductCreateViewModel();
+			productCreateViewModel.Brands = await brandRepository.GetAllAsync();
+			if (id.HasValue)
+			{
+				var product = await repository.GetAsync(id.Value);
+				if (product != null)
+				{
+					productCreateViewModel.Product = product;
+				}
+			}
+
+			return View(productCreateViewModel);
+
+		}
+
+		[Route("new-product")]
+		[HttpPost]
+		public async Task<IActionResult> Create(ProductCreateViewModel productCreateViewModel)
+		{
+			var imagePath = "";
+			var newImageExist = false;
+			if (productCreateViewModel.ImageFile != null
+		   && productCreateViewModel.ImageFile.Length > 0)
+			{
+				var filePath = Path.Combine(environment.WebRootPath, @"images/product");
+				fileDownloader.DonloadFormFile(productCreateViewModel.ImageFile, filePath);
+				imagePath = productCreateViewModel.ImageFile.FileName;
+				newImageExist = true;
+			}
+
+			if (productCreateViewModel.Product.Id > 0)
+			{
+				var productDb = await repository.GetAsync(productCreateViewModel.Product.Id);
+				if (productDb != null)
+				{
+										
+					productDb.Name = productCreateViewModel.Product.Name;
+					productDb.Stock = productCreateViewModel.Product.Stock;
+					productDb.Price = productCreateViewModel.Product.Price;
+					productDb.BrandId = productCreateViewModel.Product.BrandId;
+					if (newImageExist)
+						productDb.ImagePath = imagePath;
+				}
+			}
+			else
+			{
+				productCreateViewModel.Product.ImagePath = imagePath;
+				await repository.AddAsync(productCreateViewModel.Product);
+
+			}
+
+
+
+
+			await unitOfWork.ComplateAsync();
+
+
+			return RedirectToAction("Index");
+
+		}
+
+		[Route("delete-product")]
+		public async Task<IActionResult> Delete(int id)
+		{
+
+			var product = await repository.GetAsync(id);
+			if (product == null) { return NotFound(); }
+
+			repository.Remove(product);
+			await unitOfWork.ComplateAsync();
+
+
+			return RedirectToAction("Index"); ;
+
+		}
+	}
 }
