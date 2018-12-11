@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Html
+@model List<Category>
+
+
+@functions {
+
+HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
+public IHtmlContent BuildMenu(List<Category> model, int? parentId = null)
+{
+    var items = model.Where(d => d.ParentCategoryId == parentId);
+    if (items.Any())
+    {
+
+        htmlContentBuilder.AppendHtmlLine("  < ul >");
+
+
+        foreach (var item in items)
+        {
+            htmlContentBuilder.AppendHtmlLine("     < li >");
+            htmlContentBuilder.AppendHtmlLine($@"         < a href = "" >{ @item.Name} </ a >");
+
+            htmlContentBuilder.Append(BuildMenu(model, item.Id).ToString());
+            htmlContentBuilder.AppendHtmlLine("      </ li >");
+
+        }
+        htmlContentBuilder.AppendHtmlLine("   </ ul >");
+
+    }
+    return htmlContentBuilder;
+}
+
+}
+
+@{
+  Html.Raw( BuildMenu(Model, null));
+}
+
+
+
+@*@BuildMenu(Model data, int? parentId = null)
+    {
+             var items = data.Where(d => d.ParentCategoryId == parentId);
+             if (items.Any())
+             {
+                 <ul>
+                     @foreach (var item in items)
+                     {
+                         <li>
+                             <a href="">@item.Name</a>
+                             @BuildMenu(data, item.Id)
+                         </li>
+                     }
+                 </ul>
+             }
+        }*@

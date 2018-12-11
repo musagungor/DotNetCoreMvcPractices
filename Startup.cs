@@ -46,6 +46,7 @@ namespace DotNetCoreMvcPractices
             services.AddScoped<IUnitOfWork , UnitOfWork>();
             services.AddScoped<IFormFileDownloader,FormFileDownloader>();
             services.AddScoped<ICartService,CartService>();
+            services.AddScoped<ICategoryRepository,CategoryRepository>();
 
 
             services.AddDistributedMemoryCache();

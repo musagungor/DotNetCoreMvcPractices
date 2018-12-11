@@ -3,14 +3,16 @@ using System;
 using DotNetCoreMvcPractices.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DotNetCoreMvcPractices.Migrations
 {
     [DbContext(typeof(MvcPracticeDbContext))]
-    partial class MvcPracticeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181211210253_CategoriesAdded")]
+    partial class CategoriesAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -8,6 +8,8 @@ namespace DotNetCoreMvcPractices.Repositories
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
         public MvcPracticeDbContext(DbContextOptions<MvcPracticeDbContext> options) : base(options)
         {
 
