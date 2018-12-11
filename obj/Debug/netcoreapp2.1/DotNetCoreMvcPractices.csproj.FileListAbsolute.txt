@@ -67,3 +67,10 @@ D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\n
 D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.pdb
 D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.csproj.CopyComplete
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Cart\Index.g.cshtml.cs
+D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Cart\Index.g.cshtml.cs
+D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_NavBar.g.cshtml.cs
+D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Header.g.cshtml.cs
+D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Carousel.g.cshtml.cs
+D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_SideBar.g.cshtml.cs
+D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_BodyLayout.g.cshtml.cs
+D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Footer.g.cshtml.cs
