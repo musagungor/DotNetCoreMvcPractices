@@ -14,6 +14,8 @@ using Microsoft.Data.Sqlite;
 using DotNetCoreMvcPractices.Helpers;
 using DotNetCoreMvcPractices.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace DotNetCoreMvcPractices
 {
@@ -75,7 +77,13 @@ namespace DotNetCoreMvcPractices
             }
 
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+			app.UseStaticFiles(new StaticFileOptions
+			{
+				FileProvider = new PhysicalFileProvider(
+					Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/themes")),
+				RequestPath = "/themes"
+			});
+			app.UseCookiePolicy();
             app.UseSession();
 
             app.UseMvc(routes =>
