@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace DotNetCoreMvcPractices.Models
 {
@@ -15,6 +16,7 @@ namespace DotNetCoreMvcPractices.Models
         public string ImagePath { get; set; }
 
         public int CategoryId { get; set; }
+        [JsonIgnore]
         public Category Category { get; set; }
     }
 }

@@ -62,6 +62,8 @@ D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Product\Create.g.cshtml.cs
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Product\Index.g.cshtml.cs
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\Category\Default.g.cshtml.cs
+D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\Product\List.g.cshtml.cs
+D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\Product\Thumbnail.g.cshtml.cs
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Carousel.g.cshtml.cs
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
@@ -79,6 +81,3 @@ D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.dll
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.pdb
 D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.csproj.CopyComplete
-D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.csprojAssemblyReference.cache
-D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\Product\Thumbnail.g.cshtml.cs
-D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\Product\List.g.cshtml.cs
