@@ -18,7 +18,9 @@ namespace DotNetCoreMvcPractices.Repositories
 
         public async Task<List<Category>> GetAllAsync()
         {
-            var categories = await _context.Categories.Include(m => m.ChildCategories).ToListAsync();
+            var categories = await _context.Categories
+                .Include(m => m.ChildCategories)
+                .Include(c=>c.Products).ToListAsync();
             return categories;
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 
 namespace DotNetCoreMvcPractices.Models
@@ -20,8 +21,10 @@ namespace DotNetCoreMvcPractices.Models
         public int? ParentCategoryId { get; set; }
         public Category ParentCategory { get; set; }
         public ICollection<Category> ChildCategories { get; set; }
-        //public Category Category { get; set; }
-        //public int CategoryId { get; set; }
+
+        public ICollection<Product> Products { get; set; }
+
+
 
     }
 }

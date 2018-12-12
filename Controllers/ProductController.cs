@@ -44,11 +44,13 @@ namespace DotNetCoreMvcPractices.Controllers
 
         //TOASK Sayfadan buton ile bu actiona gelmek için post ve pur ikiside olmalı mı?
         [Route("products")]
-        public async Task<IActionResult> Index(string productName)
+        public async Task<IActionResult> Index(string productName,int? categoryId)
         {
             var products = await repository
-                        .FindAsync(p => string.IsNullOrWhiteSpace(productName)
-                                        || p.Name.ToLower().StartsWith(productName.ToLower()));
+                        .FindAsync(p => (string.IsNullOrWhiteSpace(productName)
+                                        || p.Name.ToLower().StartsWith(productName.ToLower()))
+                                        && (!categoryId.HasValue || p.CategoryId==categoryId.Value )
+                                        );
             return View(products);
         }
 

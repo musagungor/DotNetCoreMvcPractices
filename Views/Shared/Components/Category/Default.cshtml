@@ -23,7 +23,7 @@
 
 						<a asp-controller="Product"
 						   asp-action="Index"
-						   asp-route-categoryId="@subItem.Id"><i class="icon-chevron-right"></i>@subItem.Name</a>
+						   asp-route-categoryId="@subItem.Id"><i class="icon-chevron-right"></i>@subItem.Name [@subItem.Products.Count]</a>
 					</li>
 				}
 
@@ -32,9 +32,9 @@
 		else
 		{
 			//<a href="products.html?categoryId=@item.Id">@item.Name</a>
-			<a asp-controller="Product"
-			   asp-action="Index"
-			   asp-route-categoryId="@item.Id">@item.Name</a>
+            <a asp-controller="Product"
+               asp-action="Index"
+               asp-route-categoryId="@item.Id">@item.Name [@item.Products.Count]</a>
 		}
 
 	</li>

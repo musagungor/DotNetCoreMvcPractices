@@ -32,8 +32,12 @@
 <br class="clr">
 
 <div class="tab-content">
-	<div class="tab-pane" id="listView">
-		<div class="row">
+<div class="tab-pane" id="listView">
+    @foreach (var item in Model)
+    {
+        @await Component.InvokeAsync("Product",new {product=item,viewName="List"})
+    }
+    @*<div class="row">
 			<div class="span2">
 				<img src="~/themes/images/products/3.jpg" alt="">
 			</div>
@@ -205,12 +209,18 @@
 				</form>
 			</div>
 		</div>
-		<hr class="soft">
-	</div>
+		<hr class="soft">*@
+</div>
 
 	<div class="tab-pane  active" id="blockView">
-		<ul class="thumbnails">
-			<li class="span3">
+	    <ul class="thumbnails">
+            @foreach (var item in Model)
+            {
+                @await Component.InvokeAsync("Product",new {product=item,viewName="Thumbnail"})
+            }
+
+
+	        @*<li class="span3">
 				<div class="thumbnail">
 					<a href="product_details.html"><img src="~/themes/images/products/3.jpg" alt=""></a>
 					<div class="caption">
@@ -281,8 +291,8 @@
 						<h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">€222.00</a></h4>
 					</div>
 				</div>
-			</li>
-		</ul>
+			</li>*@
+	    </ul>
 		<hr class="soft">
 	</div>
 </div>

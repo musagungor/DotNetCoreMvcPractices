@@ -1,0 +1,18 @@
+﻿@model DotNetCoreMvcPractices.Models.Product
+
+<li class="span3">
+    <div class="thumbnail">
+        <a href="product_details.html"><img src="~/Images/product/@Model.ImagePath" alt=""></a>
+        <div class="caption">
+            <h5>@Model.Name</h5>
+            <p>
+               @Model.Category.Name
+            </p>
+            <h4 style="text-align: center">
+                <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> 
+                <a class="btn" href="#"> <i class="icon-shopping-cart"></i></a>
+                <a class="btn btn-primary" href="#">@Model.Price</a>
+            </h4>
+        </div>
+    </div>
+</li>

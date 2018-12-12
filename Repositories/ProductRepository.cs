@@ -24,18 +24,22 @@ namespace DotNetCoreMvcPractices.Repositories
         public async Task<Product> GetAsync(int id)
         {
 
-            var product = await context.Products.Include(m => m.Brand).SingleOrDefaultAsync(p => p.Id == id);
+            var product = await context.Products
+                        .Include(m => m.Brand)
+                .Include(p=>p.Category).SingleOrDefaultAsync(p => p.Id == id);
             return product;
         }
         public async Task<List<Product>> GetAllAsync()
         {
-            var products = await context.Products.Include(m => m.Brand).ToListAsync();
+            var products = await context.Products
+                .Include(m => m.Brand)
+                .Include(p=>p.Category).ToListAsync();
             return products;
         }
 
         public async Task<List<Product>> FindAsync(Func<Product, bool> predicate)
         {
-            var filtered = await context.Products.Where(predicate).ToAsyncEnumerable().ToList();
+            var filtered = await context.Products.Include(p=>p.Category).Where(predicate).ToAsyncEnumerable().ToList();
             return filtered;
         }
         public async Task AddAsync(Product product)
