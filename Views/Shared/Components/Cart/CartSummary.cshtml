@@ -1,0 +1,17 @@
+﻿@model Cart
+@{
+    var cartText = "Alış veriş zamanı";
+    var total = 0.0;
+    if ((Model != null && Model.CartItems.Any()))
+    {
+        cartText = "Sepetinizde " + @Model.CartItems.Count().ToString() + " ürün var";
+        total =(double)@Model.CartItems.Sum(c => c.Product.Price * c.Quantity);
+    }
+}
+<div class="well well-small">
+    <div id="cartAnimate">
+        <a id="myCart" asp-action="Index" asp-controller="Cart">
+            <img src="~/themes/images/ico-cart.png" alt="cart">@cartText <span class="badge badge-warning pull-right">@total TL</span>
+        </a>
+    </div>
+</div>

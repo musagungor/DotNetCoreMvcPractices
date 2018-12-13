@@ -25,12 +25,12 @@ namespace DotNetCoreMvcPractices.Controllers
         }
 
 		[Route("add-to-cart")]
-		public async Task AddToCart(int id)
+		public async Task<ActionResult> AddToCart(int id)
 		{
 
 			await _cartService.Add(id);
 
-
+		    return ViewComponent("Cart");
 
 		}
 

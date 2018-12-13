@@ -85,3 +85,7 @@ D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\n
 D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.csproj.CopyComplete
 D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\Product\Featured.g.cshtml.cs
 D:\ExternalProjects\DotNetCorePractice\Course\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Product\Details.g.cshtml.cs
+D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\DotNetCoreMvcPractices.csprojAssemblyReference.cache
+D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Product\Details.g.cshtml.cs
+D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\Product\Featured.g.cshtml.cs
+D:\ExternalProjects\DotNetCoreAndNg\DotNetCoreMvcPractices\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\Cart\CartSummary.g.cshtml.cs
