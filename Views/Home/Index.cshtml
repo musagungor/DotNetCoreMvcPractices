@@ -32,7 +32,7 @@
 					@for (int i = 0; i < slideCount; i++)
 					{
 						var elements = Model.Skip(i * itemPerSlide).Take(itemPerSlide).ToList();
-						
+
 
 						<div class="item @(i== 0 ? "active" : "")">
 
@@ -68,20 +68,10 @@
 @section Scripts
 	{
 
-	<script>
 
-		$(".add-to-cart-action").click(function (e) {
 
-			e.preventDefault();
-			$.ajax({
-				url: $(this).attr("href"), // comma here instead of semicolon
-				success: function () {
-					alert("Value Added"); // or any other indication if you want to show
-				}
+		<script src="~/js/cart.js"></script>
 
-			});
-
-		});
-	</script>
+	
 }
 

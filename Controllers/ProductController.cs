@@ -25,21 +25,20 @@ namespace DotNetCoreMvcPractices.Controllers
         private readonly IUnitOfWork unitOfWork;
         private readonly IBrandRepository brandRepository;
         private readonly IFormFileDownloader fileDownloader;
-        private readonly ICartService _cartService;
+        
 
         public ProductController(IHostingEnvironment environment,
         IProductRepository repository,
         IUnitOfWork unitOfWork,
         IBrandRepository brandRepository,
-        IFormFileDownloader fileDownloader,
-            ICartService cartService)
+        IFormFileDownloader fileDownloader)
         {
             this.environment = environment;
             this.repository = repository;
             this.unitOfWork = unitOfWork;
             this.brandRepository = brandRepository;
             this.fileDownloader = fileDownloader;
-            _cartService = cartService;
+          
         }
 
         //TOASK Sayfadan buton ile bu actiona gelmek için post ve pur ikiside olmalı mı?
@@ -136,18 +135,23 @@ namespace DotNetCoreMvcPractices.Controllers
             await unitOfWork.ComplateAsync();
 
 
-            return RedirectToAction("Index"); ;
+            return RedirectToAction("Index"); 
 
         }
 
-        [Route("add-to-cart")]
-        public async Task AddToCart(int id)
-        {
+		[Route("product-details/{id}")]
+		public async Task<IActionResult> Details(int id)
+		{
 
-            await _cartService.Add(id);
+			var product = await repository.GetAsync(id);
+			if (product == null) { return NotFound(); }
+
+			
+
+			return View(product); 
+
+		}
 
 
-           
-        }
-    }
+	}
 }

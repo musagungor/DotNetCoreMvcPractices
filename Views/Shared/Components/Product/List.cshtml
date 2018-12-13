@@ -21,8 +21,8 @@
                 <input type="checkbox"> Karşılaştır
             </label><br>
 
-            <a href="product_details.html" class="btn btn-large btn-primary">  <i class=" icon-shopping-cart"></i></a>
-            <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+            <a asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-large btn-primary">  <i class=" icon-shopping-cart"></i></a>
+            <a asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 
         </form>
     </div>

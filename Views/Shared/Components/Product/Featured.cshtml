@@ -22,10 +22,10 @@
 <li class="span3">
 	<div class="thumbnail">
 		<i class="tag"></i>
-		<a href="product_details.html"><img src="~/Images/product/@Model.ImagePath" alt=""></a>
+		<a asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id" ><img src="~/Images/product/@Model.ImagePath" alt=""></a>
 		<div class="caption">
 			<h5>@Model.Name</h5>
-			<h4><a class="btn" href="product_details.html">İNCELE</a> <span class="pull-right">@Model.Price</span></h4>
+			<h4><a class="btn" asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id" >İNCELE</a> <span class="pull-right">@Model.Price</span></h4>
 		</div>
 	</div>
 </li>

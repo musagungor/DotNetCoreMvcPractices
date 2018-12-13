@@ -2,15 +2,15 @@
 
 <li class="span3">
     <div class="thumbnail">
-        <a href="product_details.html"><img src="~/Images/product/@Model.ImagePath" alt=""></a>
+        <a asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id" ><img src="~/Images/product/@Model.ImagePath" alt=""></a>
         <div class="caption">
             <h5>@Model.Name</h5>
             <p>
                 @Model.Category.Name
             </p>
             <h4 style="text-align: center">
-                <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a>
-                <a asp-controller="Product" asp-action="AddToCart" asp-route-id="@Model.Id"  class="btn add-to-cart-action"> <i class="icon-shopping-cart"></i></a>
+                <a class="btn" asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id" > <i class="icon-zoom-in"></i></a>
+                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id"  class="btn add-to-cart-action"> <i class="icon-shopping-cart"></i></a>
 
                 <a class="btn btn-primary" href="#">@Model.Price</a>
             </h4>
