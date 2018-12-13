@@ -1,0 +1,77 @@
+﻿@model List<DotNetCoreMvcPractices.Models.Product>
+@using System.Linq;
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+@section Carausel
+	{
+	<partial name="_Carousel" />
+
+}
+
+
+@{
+	var featuredProducts = Model.Where(p => p.MarketDate > DateTime.Today);
+	var latestProducts = Model.OrderBy(p => p.CreatedDate).Take(6).ToList();
+}
+@if (featuredProducts.Any())
+{
+	<div class="well well-small">
+		<h4>Gelecek Ürünler <small class="pull-right">@featuredProducts.Count()+ gelecek ürün </small></h4>
+		<div class="row-fluid">
+			<div id="featured" class="carousel slide">
+				<div class="carousel-inner">
+
+					@{
+						var itemPerSlide = 4;
+						var slideCount = (int)Math.Ceiling((decimal)featuredProducts.Count() / itemPerSlide);
+					}
+
+					@for (int i = 0; i < slideCount; i++)
+					{
+						var elements = Model.Skip(i * itemPerSlide).Take(itemPerSlide).ToList();
+
+
+						<div class="item @(i== 0 ? "active" : "")">
+
+							<ul class="thumbnails">
+								@foreach (var item in elements)
+								{
+									@await Component.InvokeAsync("Product", new { product = item, viewName = "Featured" })
+								}
+
+							</ul>
+						</div>
+					}
+
+				</div>
+
+			</div>
+			<a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
+			<a class="right carousel-control" href="#featured" data-slide="next">›</a>
+		</div>
+	</div>
+
+}
+
+
+<h4>Son Eklenen Ürünler </h4>
+<ul class="thumbnails">
+	@foreach (var item in latestProducts)
+	{
+		@await Component.InvokeAsync("Product", new { product = item, viewName = "Thumbnail" })
+	}
+</ul>
+
+@section Scripts
+	{
+
+
+
+		<script src="~/js/cart.js"></script>
+
+	
+}
+
