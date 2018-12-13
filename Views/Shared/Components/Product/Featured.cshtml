@@ -1,0 +1,34 @@
+﻿@model DotNetCoreMvcPractices.Models.Product
+
+@*<li class="span3">
+    <div class="thumbnail">
+        <a href="product_details.html"><img src="~/Images/product/@Model.ImagePath" alt=""></a>
+        <div class="caption">
+            <h5>@Model.Name</h5>
+            <p>
+                @Model.Category.Name
+            </p>
+            <h4 style="text-align: center">
+                <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a>
+                <a asp-controller="Product" asp-action="AddToCart" asp-route-id="@Model.Id"  class="btn add-to-cart-action"> <i class="icon-shopping-cart"></i></a>
+
+                <a class="btn btn-primary" href="#">@Model.Price</a>
+            </h4>
+        </div>
+    </div>
+</li>*@
+
+
+<li class="span3">
+	<div class="thumbnail">
+		<i class="tag"></i>
+		<a href="product_details.html"><img src="~/Images/product/@Model.ImagePath" alt=""></a>
+		<div class="caption">
+			<h5>@Model.Name</h5>
+			<h4><a class="btn" href="product_details.html">İNCELE</a> <span class="pull-right">@Model.Price</span></h4>
+		</div>
+	</div>
+</li>
+
+
+

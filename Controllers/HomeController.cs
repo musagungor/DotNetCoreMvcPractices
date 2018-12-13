@@ -11,10 +11,20 @@ namespace DotNetCoreMvcPractices.Controllers
 {
     public class HomeController : Controller
     {
+		private readonly IProductRepository _productRepository;
+
+		public HomeController(IProductRepository productRepository)
+		{
+			_productRepository = productRepository;
+		}
        
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+
+			var products = await _productRepository.GetAllAsync();
+
+
+			return View(products);
         }
 
         public IActionResult About()

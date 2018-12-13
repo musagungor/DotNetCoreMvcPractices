@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
@@ -18,5 +19,9 @@ namespace DotNetCoreMvcPractices.Models
         public int CategoryId { get; set; }
         [JsonIgnore]
         public Category Category { get; set; }
-    }
+
+		public DateTime	CreatedDate { get; set; }
+		public DateTime MarketDate { get; set; }
+
+	}
 }
