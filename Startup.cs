@@ -16,6 +16,7 @@ using DotNetCoreMvcPractices.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using DotNetCoreMvcPractices.Models.Identity;
 
 namespace DotNetCoreMvcPractices
 {
@@ -41,6 +42,15 @@ namespace DotNetCoreMvcPractices
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+			services.AddIdentity<ApplicationUser, ApplicationRole>(opt =>
+			{
+				opt.Password.RequiredLength = 1;
+				opt.Password.RequireNonAlphanumeric = false;
+				opt.Password.RequireUppercase = false;
+				opt.User.RequireUniqueEmail = false;
+			}).AddEntityFrameworkStores<MvcPracticeDbContext>().AddDefaultTokenProviders();
+
 
             //TOASK : Transient - Singleton - Scoped
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -86,6 +96,7 @@ namespace DotNetCoreMvcPractices
 			});
 			app.UseCookiePolicy();
             app.UseSession();
+			app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
