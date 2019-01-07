@@ -1,0 +1,47 @@
+﻿@model DotNetCoreMvcPractices.ViewModels.RegisterViewModel
+
+@{
+	ViewData["Title"] = "Register";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+	<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+	<li class="active">Registration</li>
+</ul>
+
+<h3>Register</h3>
+
+<div class="well">
+	<form asp-controller="Account" asp-action="RegisterAsync" class="form-horizontal" method="post">
+		<h4>Lütfen bilgileri giriniz...</h4>
+		<div class="control-group">
+			<label class="control-label" asp-for="UserName"></label>
+			<div class="controls">
+				<input type="text" asp-for="UserName" placeholder="UserName">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" asp-for="Email" ></label>
+			<div class="controls">
+				<input type="text" asp-for="Email" placeholder="Email">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" asp-for="Password" ></label>
+			<div class="controls">
+				<input type="password" asp-for="Password" placeholder="Password">
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="hidden" name="email_create" value="1">
+				<input type="hidden" name="is_new_customer" value="1">
+				<input class="btn btn-large btn-success" type="submit" value="Register">
+			</div>
+		</div>
+	</form>
+
+
+
+</div>
