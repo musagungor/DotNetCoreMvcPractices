@@ -13,7 +13,7 @@
 <h3>Register</h3>
 
 <div class="well">
-	<form asp-controller="Account" asp-action="RegisterAsync" class="form-horizontal" method="post">
+	<form asp-controller="Account" asp-action="Register" class="form-horizontal" method="post">
 		<h4>Lütfen bilgileri giriniz...</h4>
 		<div class="control-group">
 			<label class="control-label" asp-for="UserName"></label>
@@ -22,17 +22,28 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" asp-for="Email" ></label>
+			<label class="control-label" asp-for="Email"></label>
 			<div class="controls">
 				<input type="text" asp-for="Email" placeholder="Email">
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" asp-for="Password" ></label>
+			<label class="control-label" asp-for="Password"></label>
 			<div class="controls">
 				<input type="password" asp-for="Password" placeholder="Password">
 			</div>
 		</div>
+
+		@if (!ViewData.ModelState.IsValid)
+		{
+			<div class="alert alert-block alert-error fade in">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				<div asp-validation-summary="All" class="text-danger"></div>
+			</div>
+		}
+
+
+
 		<div class="control-group">
 			<div class="controls">
 				<input type="hidden" name="email_create" value="1">
@@ -40,6 +51,7 @@
 				<input class="btn btn-large btn-success" type="submit" value="Register">
 			</div>
 		</div>
+
 	</form>
 
 
